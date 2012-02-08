@@ -1,5 +1,10 @@
 require "mobvious/version"
 
+require "mobvious/config"
+require "mobvious/manager"
+
 module Mobvious
-  # Your code goes here...
+  def self.config
+    @config ||= Mobvious::Config.new
+  end
 end
