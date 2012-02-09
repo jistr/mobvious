@@ -3,6 +3,7 @@ source :rubygems
 gemspec
 
 
+gem 'mobileesp', git: 'git://github.com/jistr/mobileesp'
 
 # == SPECIAL DEVELOPMENT DEPS HANDLING ==
 
