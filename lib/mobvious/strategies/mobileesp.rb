@@ -19,7 +19,7 @@ module Mobvious
 
       def get_device_type(request)
         mobileesp = MobileESP::UserAgentInfo.new(request.user_agent, request.accept)
-        detection_procedure.call(mobileesp)
+        @detection_procedure.call(mobileesp)
       end
     end
   end
