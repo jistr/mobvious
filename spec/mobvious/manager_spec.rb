@@ -1,4 +1,4 @@
-require 'spec_helper.rb'
+require 'spec_helper'
 
 module Mobvious
   class ManagerSpec < MiniTest::Spec
