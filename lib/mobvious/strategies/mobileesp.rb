@@ -4,12 +4,12 @@ module Mobvious
   module Strategies
     class Mobileesp
       DEVICE_TYPES_MOBILE_DESKTOP = lambda {|mobileesp|
-        return :mobile if mobileesp.is_tier_generic_phone? || mobileesp.is_tier_iphone?
+        return :mobile if mobileesp.is_tier_generic_mobile || mobileesp.is_tier_iphone
         return :desktop
       }
       DEVICE_TYPES_MOBILE_TABLET_DESKTOP = lambda {|mobileesp|
-        return :mobile if mobileesp.is_tier_generic_phone? || mobileesp.is_tier_iphone?
-        return :tablet if mobileesp.is_tier_tablet?
+        return :mobile if mobileesp.is_tier_generic_mobile || mobileesp.is_tier_iphone
+        return :tablet if mobileesp.is_tier_tablet
         return :desktop
       }
 
