@@ -3,6 +3,7 @@ require 'mobvious/strategies/mobileesp'
 
 module Mobvious::Strategies
   class MobileespSpec < MiniTest::Spec
+  describe Mobileesp do
     describe "using mobile_desktop strategy" do
       before do
         @strategy = Mobvious::Strategies::Mobileesp.new
@@ -49,6 +50,7 @@ module Mobvious::Strategies
         @strategy.get_device_type(@request).must_equal :desktop
       end
     end
+  end
   end
 end
 
