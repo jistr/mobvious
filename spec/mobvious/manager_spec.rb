@@ -69,7 +69,7 @@ module Mobvious
           request.must_be_instance_of Rack::Request
           (request.env == @env).must_equal true
           response.must_be_instance_of Rack::Response
-          response.body.must_equal @return_value[0]
+          response.body.must_equal @return_value[2]
         }
 
         @strategy2.stub_everything
