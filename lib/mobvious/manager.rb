@@ -10,12 +10,12 @@ module Mobvious
       request = Rack::Request.new(env)
       assign_device_type(request)
 
-      status, header, body = @app.call(env)
+      status, headers, body = @app.call(env)
 
-      response = Rack::Response.new(body, status, header)
+      response = Rack::Response.new(body, status, headers)
       response_callback(request, response)
 
-      [status, header, body]
+      [status, headers, body]
     end
 
     private
