@@ -7,7 +7,7 @@ module Mobvious
       @app = mock 'app'
       @env = mock 'env'
       @manager = Mobvious::Manager.new(@app)
-      @return_value = [['body_part_1'], 200, ['My-Header']]
+      @return_value = [200, ['My-Header'], ['body_part_1']]
 
       @app.stubs(:call).with(@env).returns(@return_value)
     end
