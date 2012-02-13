@@ -14,7 +14,7 @@ class URLSpec < MiniTest::Spec
         'PATH_INFO' => '/some_path'
       })
       @request = Rack::Request.new(@env)
-      @strategy = URL.new(URL::MOBILE_PATH_RULE)
+      @strategy = URL.new(URL::MOBILE_PATH_RULES)
     end
 
     it "returns the right device type when matching rule found" do

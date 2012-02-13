@@ -1,11 +1,23 @@
 require 'rack'
 
 module Mobvious
+  # Rack middleware that enables device type detection for requests.
+  #
+  # Use `Mobvious.config` to set which strategies to use.
+  #
+  # Look into `Mobvious::Strategies` for predefined strategies or write your own.
   class Manager
+    # Create a new instance of this rack middleware.
+    #
+    # @param app Rack application that can be called.
     def initialize(app)
       @app = app
     end
 
+    # Perform the device type detection and call the inner Rack application.
+    #
+    # @param env Rack environment.
+    # @return rack response `[status, headers, body]`
     def call(env)
       request = Rack::Request.new(env)
       assign_device_type(request)
