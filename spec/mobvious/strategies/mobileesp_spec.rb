@@ -8,7 +8,10 @@ module Mobvious::Strategies
       before do
         @strategy = Mobvious::Strategies::Mobileesp.new
         @request = mock 'request'
-        @request.stubs(:accept).returns('text/html')
+        @env = mock 'env'
+
+        @request.stubs(:env).returns(@env)
+        @env.stubs('[]').with('HTTP_ACCEPT').returns('text/html')
       end
 
       it "categorizes iPhone as :mobile" do
@@ -32,7 +35,10 @@ module Mobvious::Strategies
         @strategy = Mobvious::Strategies::Mobileesp.new(
           Mobvious::Strategies::Mobileesp::DEVICE_TYPES_MOBILE_TABLET_DESKTOP)
         @request = mock 'request'
-        @request.stubs(:accept).returns('text/html')
+        @env = mock 'env'
+
+        @request.stubs(:env).returns(@env)
+        @env.stubs('[]').with('HTTP_ACCEPT').returns('text/html')
       end
 
       it "categorizes iPhone as :mobile" do
