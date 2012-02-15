@@ -18,4 +18,19 @@ module Mobvious
   def self.config
     @config ||= Mobvious::Config.new
   end
+
+  # An accessor for getting an instance of a strategy that is currently in use.
+  # (Must be present in current `Mobvious.config.strategies`.)
+  # @param class_name [String] a class name of the wanted strategy object
+  def self.strategy(class_name)
+    matching_strategies = self.config.strategies.select do
+      |strategy| strategy.class.name.split('::').last == class_name
+    end
+
+    if matching_strategies.size == 1
+      matching_strategies.first
+    else
+      matching_strategies
+    end
+  end
 end
