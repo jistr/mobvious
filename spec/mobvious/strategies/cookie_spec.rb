@@ -28,7 +28,7 @@ class CookieSpec < MiniTest::Spec
         it "sets the cookie on response" do
           @app.expects(:call).returns([@response.status, @response.headers, @response.body])
             .with do |env|
-              @strategy.set_device_type_cookie(@response, :tablet)
+              @strategy.set_device_type(@response, :tablet)
               true
             end
           @mock_session.request @uri, @env
@@ -66,7 +66,7 @@ class CookieSpec < MiniTest::Spec
         it "sets the response cookie to the new value, not the old one" do
           @app.expects(:call).returns([@response.status, @response.headers, @response.body])
             .with do |env|
-              @strategy.set_device_type_cookie(@response, :mobile)
+              @strategy.set_device_type(@response, :mobile)
               true
             end
           @mock_session.request @uri, @env
