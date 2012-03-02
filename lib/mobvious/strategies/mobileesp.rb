@@ -35,6 +35,7 @@ module Mobvious
       # @param request [Rack::Request]
       # @return [Symbol] device type or nil
       def get_device_type(request)
+        return nil if request.user_agent.nil? || request.env['HTTP_ACCEPT'].nil?
         mobileesp = MobileESP::UserAgentInfo.new(request.user_agent, request.env['HTTP_ACCEPT'])
         @detection_procedure.call(mobileesp)
       end
