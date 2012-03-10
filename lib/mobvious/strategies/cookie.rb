@@ -13,18 +13,27 @@ module Mobvious
     class Cookie
       # Creates a new Cookie strategy instance.
       #
+      # @param allowed_device_types [Array<Symbol>]
+      #   A whitelist of all device types that can be returned by this strategy. This is
+      #   a security measure against modifying the cookies on client side.
       # @param cookie_expires [Integer]
       #   Amount of seconds to hold device type cookie. Defaults to one year (365*24*60*60).
-      def initialize(cookie_expires = (365*24*60*60))
+      def initialize(allowed_device_types, cookie_expires = (365*24*60*60))
         @cookie_expires = cookie_expires
+
+        # device types must be compared with the cookie as strings to prevent attacks
+        # against .to_sym that could lead to memory leaks
+        @allowed_device_types = allowed_device_types.map {|device_type| device_type.to_s }
       end
 
-      # Gets device type using a pre-set cookie. Returns nil if the cookie is not set.
+      # Gets device type using a pre-set cookie. Returns nil if the cookie is not set or its
+      # value is not listed among `allowed_device_types` (the list can be defined in {#initialize}).
       #
       # @param request [Rack::Request]
       # @return [Symbol] device type or nil
       def get_device_type(request)
-        request.cookies['mobvious.device_type'].to_sym if request.cookies['mobvious.device_type']
+        cookie_value = request.cookies['mobvious.device_type']
+        cookie_value.to_sym if @allowed_device_types.include? cookie_value
       end
 
       # Automatically sets the device type cookie again to prolong its expiration date.

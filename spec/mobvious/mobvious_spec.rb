@@ -6,8 +6,8 @@ describe Mobvious do
     before do
       require 'mobvious/strategies/cookie'
       require 'mobvious/strategies/mobileesp'
-      @cookie = Mobvious::Strategies::Cookie.new
-      @cookie2 = Mobvious::Strategies::Cookie.new
+      @cookie = Mobvious::Strategies::Cookie.new [:mobile, :desktop]
+      @cookie2 = Mobvious::Strategies::Cookie.new [:mobile, :desktop]
       @mobileesp = Mobvious::Strategies::Mobileesp.new
       Mobvious.config.strategies = [
         @cookie,

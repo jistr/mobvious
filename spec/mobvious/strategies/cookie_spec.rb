@@ -5,7 +5,7 @@ module Mobvious::Strategies
 class CookieSpec < MiniTest::Spec
   describe Cookie do
     before do
-      @strategy = Cookie.new
+      @strategy = Cookie.new [:desktop, :tablet, :mobile]
       @app = mock 'app'
       @uri = URI("http://foo.com/")
 
@@ -42,6 +42,16 @@ class CookieSpec < MiniTest::Spec
       before do
         @request = Rack::Request.new(@env)
         @request.cookies['mobvious.device_type'] = 'tablet'
+      end
+
+      it "returns nil if cookie has invalid value" do
+        @request.cookies['mobvious.device_type'] = 'memory_leak_attack'
+        @app.expects(:call).returns([@response.status, @response.headers, @response.body])
+          .with do |env|
+            @strategy.get_device_type(@request).must_equal nil
+            true
+          end
+        mock_response = @mock_session.request @uri, @env
       end
 
       it "gets device type from cookie" do
