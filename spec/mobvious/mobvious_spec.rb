@@ -16,6 +16,12 @@ describe Mobvious do
       ]
     end
 
+    it "yields itself in configure block" do
+      Mobvious.configure do
+        strategies.must_equal Mobvious.config.strategies
+      end
+    end
+
     it "gets the right strategy by class name" do
       Mobvious.strategy('Mobileesp').must_equal @mobileesp
     end

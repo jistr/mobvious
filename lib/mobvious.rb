@@ -13,6 +13,13 @@ require "mobvious/manager"
 #
 # See {Mobvious::Strategies} for predefined strategies or roll out your own.
 module Mobvious
+  # A configuration method, evaluates the block in the context of the Mobvious.config object.
+  def self.configure &block
+    raise "Configure method needs to be passed a block." unless block_given?
+
+    config.instance_eval &block
+  end
+
   # An accessor for the global Mobvious configuration object.
   # See {Config} for configuration options.
   def self.config
