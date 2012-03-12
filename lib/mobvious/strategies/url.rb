@@ -11,7 +11,7 @@ module Mobvious
       #   A hash containing regular expressions mapped to symbols. The regular expression
       #   is evaluated against the whole URL of the request (including `http://`). If matching,
       #   the corresponding symbol is returned as the device type.
-      def initialize(rules = MOBILE_PATH_RULE)
+      def initialize(rules = MOBILE_PATH_RULES)
         @rules = rules
       end
 
