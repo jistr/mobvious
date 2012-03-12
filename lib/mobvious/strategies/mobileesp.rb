@@ -1,4 +1,4 @@
-require 'mobileesp'
+require 'mobileesp_converted'
 
 module Mobvious
   module Strategies
@@ -36,7 +36,7 @@ module Mobvious
       # @return [Symbol] device type or nil
       def get_device_type(request)
         return nil if request.user_agent.nil? || request.env['HTTP_ACCEPT'].nil?
-        mobileesp = MobileESP::UserAgentInfo.new(request.user_agent, request.env['HTTP_ACCEPT'])
+        mobileesp = MobileESPConverted::UserAgentInfo.new(request.user_agent, request.env['HTTP_ACCEPT'])
         @detection_procedure.call(mobileesp)
       end
     end
