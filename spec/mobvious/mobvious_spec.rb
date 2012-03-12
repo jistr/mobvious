@@ -8,7 +8,7 @@ describe Mobvious do
       require 'mobvious/strategies/mobileesp'
       @cookie = Mobvious::Strategies::Cookie.new [:mobile, :desktop]
       @cookie2 = Mobvious::Strategies::Cookie.new [:mobile, :desktop]
-      @mobileesp = Mobvious::Strategies::Mobileesp.new
+      @mobileesp = Mobvious::Strategies::MobileESP.new
       Mobvious.config.strategies = [
         @cookie,
         @cookie2,
@@ -23,7 +23,7 @@ describe Mobvious do
     end
 
     it "gets the right strategy by class name" do
-      Mobvious.strategy('Mobileesp').must_equal @mobileesp
+      Mobvious.strategy('MobileESP').must_equal @mobileesp
     end
 
     it "gets an array of strategies if there is more with the same name" do

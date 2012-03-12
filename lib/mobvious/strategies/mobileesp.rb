@@ -4,7 +4,7 @@ module Mobvious
   module Strategies
     # Mobvious device detection strategy that uses user-agent sniffing provided by
     # the MobileESP library.
-    class Mobileesp
+    class MobileESP
       # Detection procedure that classifies mobile phones as `:mobile` and anything
       # else as `:desktop`.
       DEVICE_TYPES_MOBILE_DESKTOP = lambda {|mobileesp|

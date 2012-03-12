@@ -1,5 +1,4 @@
 require_relative '../../spec_helper'
-require 'mobvious/strategies/cookie'
 
 module Mobvious::Strategies
 class CookieSpec < MiniTest::Spec

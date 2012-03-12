@@ -40,4 +40,11 @@ module Mobvious
       matching_strategies
     end
   end
+
+
+  module Strategies
+    autoload :Cookie,    'mobvious/strategies/cookie'
+    autoload :MobileESP, 'mobvious/strategies/mobileesp'
+    autoload :URL,       'mobvious/strategies/url'
+  end
 end

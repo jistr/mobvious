@@ -1,12 +1,11 @@
 require_relative '../../spec_helper'
-require 'mobvious/strategies/mobileesp'
 
 module Mobvious::Strategies
-  class MobileespSpec < MiniTest::Spec
-  describe Mobileesp do
+  class MobileESPSpec < MiniTest::Spec
+  describe MobileESP do
     describe "using mobile_desktop strategy" do
       before do
-        @strategy = Mobvious::Strategies::Mobileesp.new
+        @strategy = Mobvious::Strategies::MobileESP.new
         @request = mock 'request'
         @env = mock 'env'
 
@@ -32,8 +31,8 @@ module Mobvious::Strategies
 
     describe "using mobile_tablet_desktop strategy" do
       before do
-        @strategy = Mobvious::Strategies::Mobileesp.new(
-          Mobvious::Strategies::Mobileesp::DEVICE_TYPES_MOBILE_TABLET_DESKTOP)
+        @strategy = Mobvious::Strategies::MobileESP.new(
+          Mobvious::Strategies::MobileESP::DEVICE_TYPES_MOBILE_TABLET_DESKTOP)
         @request = mock 'request'
         @env = mock 'env'
 
