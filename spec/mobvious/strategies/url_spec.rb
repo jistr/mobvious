@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative '../../spec_helper'
 require 'mobvious/strategies/url'
 
 module Mobvious::Strategies

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative '../spec_helper'
 
 class MobviousSpec < MiniTest::Spec
 describe Mobvious do
