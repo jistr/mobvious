@@ -13,6 +13,8 @@ or by a personal computer.
 
 * **Works with Rails, Sinatra, or whatever.** Does not depend on any application
   framework, uses just Rack.
+
+* **[Documentation](http://rdoc.info/github/jistr/mobvious/frames).**
   
 
 ## Get Started
