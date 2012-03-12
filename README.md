@@ -59,11 +59,11 @@ in the `configure` block).
 
 Selects the device type using information present in the User-Agent HTTP header.
 
-Constructor takes one parameter: a detection procedure.
+Constructor takes a detection procedure.
 Detection procedure decides what device type it should return based on the
 information it can dig out of MobileESPConverted::UserAgentInfo instance.
 
-There are two predefined detection procedures:
+There are two predefined detection procedures (and you can write your own):
 
 *   `DEVICE_TYPES_MOBILE_DESKTOP` (this is the default)
     distinguishes between `:mobile` and `:desktop`. Tablets
@@ -78,8 +78,7 @@ There are two predefined detection procedures:
 Selects the device type by matching a pattern against the request's URL (whole URL,
 including protocol information).
 
-Constructor takes one parameter: a hash of rules in format
-`/regular_expression/ => :device_type`.
+Constructor takes a hash of rules in format `/regular_expression/ => :device_type`.
 
 There is one predefined rule set:
 
@@ -101,10 +100,10 @@ of what is his/her real device type. Make sure to put the Cookie strategy high e
 in your strategies array (the first entry?) so it does not get overriden by some other
 strategy.
 
-Constructor takes one parameter: array of allowed device types ("whitelist") that your
+Constructor takes array of allowed device types ("whitelist") that your
 application supports. This is a countermeasure to users tampering with cookies. When
 the device type read from cookie is not whitelisted, the strategy passes the detection
-process to other strategies).
+process to other strategies.
 
 ### Writing Your Own Strategy
 
@@ -130,3 +129,7 @@ Optionally, you can also implement this method:
 It gets called after a response is returned from the application and you can tweak the
 response here if you want. The parameters are instances of Rack::Request
 and Rack::Response, respectively. The method is not expected to return anything special.
+
+---
+
+***Everyone goes with the defaults anyway*** ![cereal guy](https://github.com/engina/9gagtension/raw/master/rages/cereal-guy.jpg)
