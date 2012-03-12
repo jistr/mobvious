@@ -20,7 +20,7 @@ module Mobvious::Strategies
       end
 
       it "categorizes Android tablet as :desktop" do
-        @request.stubs(:user_agent).returns("Mozilla/5.0 (Linux; U; Android 3.0; xx-xx; Xoom Build/HRI39) AppleWebKit/525.10+ (KHTML, like Gecko) Version/3.0.4 Mobile Safari/523.12.2")
+        @request.stubs(:user_agent).returns("Mozilla/5.0 (Linux; U; Android 3.0; en-us; Xoom Build/HRI39) AppleWebKit/534.13 (KHTML, like Gecko) Version/4.0 Safari/534.13")
         @strategy.get_device_type(@request).must_equal :desktop
       end
 
@@ -47,7 +47,7 @@ module Mobvious::Strategies
       end
 
       it "categorizes Android tablet as :tablet" do
-        @request.stubs(:user_agent).returns("Mozilla/5.0 (Linux; U; Android 3.0; xx-xx; Xoom Build/HRI39) AppleWebKit/525.10+ (KHTML, like Gecko) Version/3.0.4 Mobile Safari/523.12.2")
+        @request.stubs(:user_agent).returns("Mozilla/5.0 (Linux; U; Android 3.0; en-us; Xoom Build/HRI39) AppleWebKit/534.13 (KHTML, like Gecko) Version/4.0 Safari/534.13")
         @strategy.get_device_type(@request).must_equal :tablet
       end
 
