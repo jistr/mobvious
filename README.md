@@ -27,10 +27,8 @@ or by a personal computer.
     A good place to put this code for Rails is an initializer – create a file
     `config/initializers/mobvious.rb` and put this in:
 
-        require 'mobvious/strategies/mobileesp'
-
         Mobvious.configure do
-          strategies = [ Mobvious::Strategies::Mobileesp.new ]
+          strategies = [ Mobvious::Strategies::MobileESP.new ]
         end
 
 4.  **Done! From now on, device type is detected for each request.**  
@@ -41,12 +39,24 @@ or by a personal computer.
 
 *This is just a very basic way of setting up Mobvious. If you want to detect
 tablets separately, or let the user manually switch between interface versions of your
-app, or do some funnier stuff, see sections Configuration and Detection Strategies.*
+app, or do some funnier stuff, see sections Detection Process and Detection Strategies.*
 
-## Configuration
+## Detection Process
 
-TODO
+Mobvious uses an array of strategies to detect the device type.
+Strategies are evaluated in order of appearance in the array. Each strategy may or
+may not be successful in determining the device type. The result of the first successful
+strategy is used. If no strategy is successful, the implicit device type is used
+(defaults to `:desktop`, but this is configurable via `default_device_type` attribute
+in the `configure` block).
+
 
 ## Detection Strategies
 
-TODO
+### MobileESP
+
+### URL
+
+### Cookie
+
+### Writing Your Own
