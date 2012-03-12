@@ -94,17 +94,18 @@ There is one predefined rule set:
 
 `Mobvious::Strategies::Cookie`
 
-This strategy is useful when you want the user to make a manual switch between interfaces
-and you want all the interface versions running on the exact same URL.
+This strategy is useful when user should be able to make a manual switch between
+interface versions and you want all the interface versions running on the exact same URL.
 
 Call this anywhere in your app:
 
-        Mobvious.strategy('Cookie').set_device_type(:desktop)
+        Mobvious.strategy('Cookie').set_device_type(response, :desktop)
         
 … and Mobvious will report `:desktop` from now on for this particular user, regardless
-of what is his/her real device type. Make sure to put the Cookie strategy high enough
-in your strategies array (the first entry?) so it does not get overriden by some other
-strategy.
+of what is his/her real device type. (Response parameter is your Rack::Response instance.
+In Rails it is accessible simply by writing `response`, as shown in the code example above.)
+Make sure to put the Cookie strategy high enough in your strategies array
+(the first entry?) so it does not get overriden by some other strategy.
 
 Constructor takes array of allowed device types ("whitelist") that your
 application supports. This is a countermeasure to users tampering with cookies. When
