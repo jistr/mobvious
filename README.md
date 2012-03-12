@@ -57,6 +57,8 @@ in the `configure` block).
 
 ### MobileESP (User-Agent sniffing)
 
+`Mobvious::Strategies::MobileESP`
+
 Selects the device type using information present in the User-Agent HTTP header.
 
 Constructor takes a detection procedure.
@@ -75,6 +77,8 @@ There are two predefined detection procedures (and you can write your own):
 
 ### URL (URL pattern matching)
 
+`Mobvious::Strategies::URL`
+
 Selects the device type by matching a pattern against the request's URL (whole URL,
 including protocol information).
 
@@ -87,6 +91,8 @@ There is one predefined rule set:
     continues to the next strategy in order).
 
 ### Cookie (remembering user's manual choice)
+
+`Mobvious::Strategies::Cookie`
 
 This strategy is useful when you want the user to make a manual switch between interfaces
 and you want all the interface versions running on the exact same URL.
