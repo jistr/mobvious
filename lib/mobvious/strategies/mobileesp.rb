@@ -23,7 +23,7 @@ module Mobvious
       # Creates a new instance of MobileESP strategy.
       #
       # @param detection_procedure
-      #   A lambda function that gets one parameter (`MobileESP::UserAgentInfo` instance)
+      #   A lambda function that gets one parameter (`MobileESPConverted::UserAgentInfo` instance)
       #   and returns device type symbol or nil.
       def initialize(detection_procedure = DEVICE_TYPES_MOBILE_DESKTOP)
         @detection_procedure = detection_procedure
