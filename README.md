@@ -53,10 +53,78 @@ in the `configure` block).
 
 ## Detection Strategies
 
-### MobileESP
+### MobileESP (User-Agent sniffing)
 
-### URL
+Selects the device type using information present in the User-Agent HTTP header.
 
-### Cookie
+Constructor takes one parameter: a detection procedure.
+Detection procedure decides what device type it should return based on the
+information it can dig out of MobileESPConverted::UserAgentInfo instance.
 
-### Writing Your Own
+There are two predefined detection procedures:
+
+*   `DEVICE_TYPES_MOBILE_DESKTOP` (this is the default)
+    distinguishes between `:mobile` and `:desktop`. Tablets
+    are reported as `:desktop`, because their screens are usually large enough to handle
+    web interfaces meant for desktops.
+
+*   `DEVICE_TYPES_MOBILE_TABLET_DESKTOP` distinguishes between `:mobile`, `:tablet`
+    and `:desktop`.
+
+### URL (URL pattern matching)
+
+Selects the device type by matching a pattern against the request's URL (whole URL,
+including protocol information).
+
+Constructor takes one parameter: a hash of rules in format
+`/regular_expression/ => :device_type`.
+
+There is one predefined rule set:
+
+*   `MOBILE_PATH_RULES` detects all URLs that begin with m. (e.g. `http://m.foo.com/`)
+    as `:mobile`. Doesn't make assumption about other URLs (the detection process
+    continues to the next strategy in order).
+
+### Cookie (remembering user's manual choice)
+
+This strategy is useful when you want the user to make a manual switch between interfaces
+and you want all the interface versions running on the exact same URL.
+
+Call this anywhere in your app:
+
+        Mobvious.strategy('Cookie').set_device_type(:desktop)
+        
+… and Mobvious will report `:desktop` from now on for this particular user, regardless
+of what is his/her real device type. Make sure to put the Cookie strategy high enough
+in your strategies array (the first entry?) so it does not get overriden by some other
+strategy.
+
+Constructor takes one parameter: array of allowed device types ("whitelist") that your
+application supports. This is a countermeasure to users tampering with cookies. When
+the device type read from cookie is not whitelisted, the strategy passes the detection
+process to other strategies).
+
+### Writing Your Own Strategy
+
+It's super-easy. A valid Mobvious strategy is any object that responds to this method:
+
+        def get_device_type(request)
+          # some code here
+        end
+
+The request parameter is an object of type Rack::Request. The method must return either:
+
+*   **a symbol** denoting the device type detected (strategy was successful), or
+*   **nil** denoting that strategy was unsuccessful and detection process should continue
+    with other strategies (or return the implicit device type).
+
+
+Optionally, you can also implement this method:
+
+        def response_callback(request, response)
+          # some code here
+        end
+
+It gets called after a response is returned from the application and you can tweak the
+response here if you want. The parameters are instances of Rack::Request
+and Rack::Response, respectively. The method is not expected to return anything special.
