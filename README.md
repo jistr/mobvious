@@ -1,7 +1,9 @@
 # Mobvious
 
 Mobvious detects whether your app / website is being accessed by a phone, or by a tablet,
-or by a personal computer.
+or by a personal computer. You can then use this information throughout your app (e.g.
+to fork your view code with regard to device type). There is a
+[plugin for Ruby on Rails](https://github.com/jistr/mobvious-rails) that helps you with this.
 
 ## Key Features
 
