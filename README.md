@@ -21,15 +21,18 @@ to fork your view code with regard to device type). There is a
 
 ## Get Started
 
-1.  **Include Mobvious in your Gemfile**: `gem 'mobvious'`
+1.  **Include Mobvious in your Gemfile**:
+
+        gem 'mobvious'
 
 2.  **Tell your app to use Mobvious::Manager as Rack middleware.**  
-    If you use Rails, simply add `config.middleware.use Mobvious::Manager` into your
-    `config/application.rb` file.
+    If you use Rails, simply add this into your `config/application.rb`:
+
+        config.middleware.use Mobvious::Manager
 
 3.  **Tell Mobvious which strategies it should use.**  
-    A good place to put this code for Rails is an initializer – create a file
-    `config/initializers/mobvious.rb` and put this in:
+    A good place for this code in Rails is an initializer – create
+    `config/initializers/mobvious.rb` and use this config to begin with:
 
         Mobvious.configure do
           strategies = [ Mobvious::Strategies::MobileESP.new ]
