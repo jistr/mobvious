@@ -39,7 +39,9 @@ to fork your view code with regard to device type). There is a
     The information is
     in a Rack environment variable `env['mobvious.device_type']`, this variable will
     have a value of `:desktop` or `:mobile` depending on the device type that issued
-    the request. In Rails, you can access it via `request.env['mobvious.device_type']`.
+    the request. In Rails, you can access it via `request.env['mobvious.device_type']`
+    or use [mobvious-rails](https://github.com/jistr/mobvious-rails)
+    and access it simply via `device_type`.
 
 *This is just a very basic way of setting up Mobvious. If you want to detect
 tablets separately, or let the user manually switch between interface versions of your
