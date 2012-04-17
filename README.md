@@ -64,7 +64,7 @@ in the `configure` block).
 
 ### MobileESP (User-Agent sniffing)
 
-`Mobvious::Strategies::MobileESP`
+`Mobvious::Strategies::MobileESP` | [view docs](http://rdoc.info/github/jistr/mobvious/master/Mobvious/Strategies/MobileESP)
 
 Selects the device type using information present in the User-Agent HTTP header.
 
@@ -84,7 +84,7 @@ There are two predefined detection procedures (and you can write your own):
 
 ### URL (URL pattern matching)
 
-`Mobvious::Strategies::URL`
+`Mobvious::Strategies::URL` | [view docs](http://rdoc.info/github/jistr/mobvious/master/Mobvious/Strategies/URL)
 
 Selects the device type by matching a pattern against the request's URL (whole URL,
 including protocol information).
@@ -99,7 +99,7 @@ There is one predefined rule set:
 
 ### Cookie (remembering user's manual choice)
 
-`Mobvious::Strategies::Cookie`
+`Mobvious::Strategies::Cookie` | [view docs](http://rdoc.info/github/jistr/mobvious/master/Mobvious/Strategies/Cookie)
 
 This strategy is useful when user should be able to make a manual switch between
 interface versions and you want all the interface versions running on the exact same URL.
