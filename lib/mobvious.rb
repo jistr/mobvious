@@ -14,6 +14,7 @@ require "mobvious/manager"
 # See {Mobvious::Strategies} for predefined strategies or roll out your own.
 module Mobvious
   # A configuration method, yields the Mobvious.config object.
+  # @yield [Config] object holding Mobvious configuration
   def self.configure &block
     raise "Configure method needs to be passed a block." unless block_given?
 
