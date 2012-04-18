@@ -3,14 +3,17 @@ require_relative '../../spec_helper'
 module Mobvious::Strategies
   class MobileESPSpec < MiniTest::Spec
   describe MobileESP do
-    describe "using mobile_desktop strategy" do
+    before do
+      @request = mock 'request'
+      @env = mock 'env'
+
+      @request.stubs(:env).returns(@env)
+      @env.stubs('[]').with('HTTP_ACCEPT').returns('text/html')
+    end
+
+    describe "using default (mobile_desktop) strategy" do
       before do
         @strategy = Mobvious::Strategies::MobileESP.new
-        @request = mock 'request'
-        @env = mock 'env'
-
-        @request.stubs(:env).returns(@env)
-        @env.stubs('[]').with('HTTP_ACCEPT').returns('text/html')
       end
 
       it "categorizes iPhone as :mobile" do
@@ -31,13 +34,7 @@ module Mobvious::Strategies
 
     describe "using mobile_tablet_desktop strategy" do
       before do
-        @strategy = Mobvious::Strategies::MobileESP.new(
-          Mobvious::Strategies::MobileESP::DEVICE_TYPES_MOBILE_TABLET_DESKTOP)
-        @request = mock 'request'
-        @env = mock 'env'
-
-        @request.stubs(:env).returns(@env)
-        @env.stubs('[]').with('HTTP_ACCEPT').returns('text/html')
+        @strategy = Mobvious::Strategies::MobileESP.new(:mobile_tablet_desktop)
       end
 
       it "categorizes iPhone as :mobile" do
@@ -53,6 +50,20 @@ module Mobvious::Strategies
       it "categorizes Chrome on Linux as :desktop" do
         @request.stubs(:user_agent).returns("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.46 Safari/535.11")
         @strategy.get_device_type(@request).must_equal :desktop
+      end
+    end
+
+    describe "custom strategy" do
+      before do
+        procedure = lambda {|mobileesp|
+          return :test
+        }
+        @strategy = Mobvious::Strategies::MobileESP.new(procedure)
+      end
+
+      it "categorizes anything as :test" do
+        @request.stubs(:user_agent).returns("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.46 Safari/535.11")
+        @strategy.get_device_type(@request).must_equal :test
       end
     end
   end

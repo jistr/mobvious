@@ -25,8 +25,12 @@ module Mobvious
       # @param detection_procedure
       #   A lambda function that gets one parameter (`MobileESPConverted::UserAgentInfo` instance)
       #   and returns device type symbol or nil.
-      def initialize(detection_procedure = DEVICE_TYPES_MOBILE_DESKTOP)
-        @detection_procedure = detection_procedure
+      def initialize(detection_procedure = :mobile_desktop)
+        if detection_procedure.is_a? Symbol
+          @detection_procedure = eval("DEVICE_TYPES_#{detection_procedure.to_s.upcase}")
+        else
+          @detection_procedure = detection_procedure
+        end
       end
 
       # Gets device type using user-agent sniffing. Can return nil if the used
