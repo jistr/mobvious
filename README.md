@@ -68,7 +68,8 @@ in the `configure` block).
 
 Selects the device type using information present in the User-Agent HTTP header.
 
-Constructor takes a detection procedure.
+[Constructor](http://rdoc.info/github/jistr/mobvious/master/Mobvious/Strategies/MobileESP#initialize-instance_method)
+takes a detection procedure.
 Detection procedure decides what device type it should return based on the
 information it can dig out of MobileESPConverted::UserAgentInfo instance.
 
@@ -89,7 +90,13 @@ There are two predefined detection procedures (and you can write your own):
 Selects the device type by matching a pattern against the request's URL (whole URL,
 including protocol information).
 
-Constructor takes a hash of rules in format `/regular_expression/ => :device_type`.
+[Constructor](http://rdoc.info/github/jistr/mobvious/master/Mobvious/Strategies/URL#initialize-instance_method)
+takes a hash of rules in format `{ /regular_expression/ => :device_type }` and options. Using the options you
+can disable this strategy for requests that have the Referer HTTP header set or matching / not matching some
+regular expression
+([see docs](http://rdoc.info/github/jistr/mobvious/master/Mobvious/Strategies/URL#initialize-instance_method)).
+This is useful if you want to exclude URL detection for users coming via links from other sites and let the
+User-Agent detection take precedence.
 
 There is one predefined rule set:
 
@@ -114,7 +121,8 @@ In Rails it is accessible simply by writing `response`, as shown in the code exa
 Make sure to put the Cookie strategy high enough in your strategies array
 (the first entry?) so it does not get overriden by some other strategy.
 
-Constructor takes array of allowed device types ("whitelist") that your
+[Constructor](http://rdoc.info/github/jistr/mobvious/master/Mobvious/Strategies/Cookie#initialize-instance_method)
+takes an array of allowed device types ("whitelist") that your
 application supports. This is a countermeasure to users tampering with cookies. When
 the device type read from cookie is not whitelisted, the strategy passes the detection
 process to other strategies.
