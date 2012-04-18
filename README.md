@@ -48,7 +48,8 @@ fork your front-end code with regard to device type. There is a
 
 *This is just a very basic way of setting up Mobvious. If you want to detect
 tablets separately, or let the user manually switch between interface versions of your
-app, or do some funnier stuff, see sections Detection Process and Detection Strategies.*
+app, or do some funnier stuff, see sections Detection Process, Example Configurations
+and Detection Strategies.*
 
 ## Detection Process
 
@@ -58,6 +59,44 @@ may not be successful in determining the device type. The result of the first su
 strategy is used. If no strategy is successful, the implicit device type is used
 (defaults to `:desktop`, but this is configurable via `default_device_type` attribute
 in the `configure` block).
+
+
+## Example Configurations
+
+*   Detects only by User-Agent into mobile vs. tablet vs. desktop groups.
+
+        Mobvious.configure do
+          strategies = [ Mobvious::Strategies::MobileESP.new(:mobile_tablet_desktop) ]
+        end
+
+*   Detects by User-Agent into mobile vs. tablet vs. desktop groups, but allows users
+    to manually switch interface versions (Cookie strategy is used for this and it is
+    the first one, so it has top precedence).
+
+        Mobvious.configure do
+          strategies = [
+            Mobvious::Strategies::Cookie.new([:mobile, :tablet, :desktop])
+            Mobvious::Strategies::MobileESP.new(:mobile_tablet_desktop)
+          ]
+        end
+
+*   Detects by URL into mobile vs. desktop groups (if URL has `m.` subdomain,
+    use mobile interface), but only for users coming directly, not via a link
+    clicked. For users coming via a link (if HTTP Referer header is set)
+    this config will use User-Agent detection.
+
+    When using this config, you will have to perform redirects in your app if
+    the URL which user requested doesn't match their device type.
+    (E.g. if the user comes to 'm.foo.com' via a link, but Mobvious tells you
+    that their device is a desktop computer, make sure to redirect the user
+    immediately to 'www.foo.com'.)
+
+        Mobvious.configure do
+          strategies = [
+            Mobvious::Strategies::URL.new(:mobile_path, disable_if_referer_set: true)
+            Mobvious::Strategies::MobileESP.new
+          ]
+        end
 
 
 ## Detection Strategies
