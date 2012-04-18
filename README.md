@@ -34,8 +34,8 @@ fork your front-end code with regard to device type. There is a
     A good place for this code in Rails is an initializer – create
     `config/initializers/mobvious.rb` and use this config to begin with:
 
-        Mobvious.configure do
-          strategies = [ Mobvious::Strategies::MobileESP.new ]
+        Mobvious.configure do |config|
+          config.strategies = [ Mobvious::Strategies::MobileESP.new ]
         end
 
 4.  **Done! From now on, device type is detected for each request.**  
@@ -65,16 +65,16 @@ in the `configure` block).
 
 *   Detects only by User-Agent into mobile vs. tablet vs. desktop groups.
 
-        Mobvious.configure do
-          strategies = [ Mobvious::Strategies::MobileESP.new(:mobile_tablet_desktop) ]
+        Mobvious.configure do |config|
+          config.strategies = [ Mobvious::Strategies::MobileESP.new(:mobile_tablet_desktop) ]
         end
 
 *   Detects by User-Agent into mobile vs. tablet vs. desktop groups, but allows users
     to manually switch interface versions (Cookie strategy is used for this and it is
     the first one, so it has top precedence).
 
-        Mobvious.configure do
-          strategies = [
+        Mobvious.configure do |config|
+          config.strategies = [
             Mobvious::Strategies::Cookie.new([:mobile, :tablet, :desktop])
             Mobvious::Strategies::MobileESP.new(:mobile_tablet_desktop)
           ]
@@ -91,8 +91,8 @@ in the `configure` block).
     that their device is a desktop computer, make sure to redirect the user
     immediately to 'www.foo.com'.)
 
-        Mobvious.configure do
-          strategies = [
+        Mobvious.configure do |config|
+          config.strategies = [
             Mobvious::Strategies::URL.new(:mobile_path, disable_if_referer_set: true)
             Mobvious::Strategies::MobileESP.new
           ]
