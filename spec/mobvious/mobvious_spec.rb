@@ -17,8 +17,8 @@ describe Mobvious do
     end
 
     it "yields itself in configure block" do
-      Mobvious.configure do
-        strategies.must_equal Mobvious.config.strategies
+      Mobvious.configure do |config|
+        config.strategies.must_equal Mobvious.config.strategies
       end
     end
 
