@@ -12,7 +12,7 @@ module Mobvious
       #   is evaluated against the whole URL of the request (including `http://`). If matching,
       #   the corresponding symbol is returned as the device type.  
       #   **or**  
-      #   a symbol for one of predefined detection rules (`:mobile_path_rules`)
+      #   a symbol for one of predefined detection rules (`:mobile_path`)
       # @param options
       #   A hash with strategy options.  
       #   `disable_if_referer_set: true` disables the strategy if HTTP Referer header is set  
