@@ -10,7 +10,9 @@ module Mobvious
       # @param rules
       #   A hash containing regular expressions mapped to symbols. The regular expression
       #   is evaluated against the whole URL of the request (including `http://`). If matching,
-      #   the corresponding symbol is returned as the device type.
+      #   the corresponding symbol is returned as the device type.  
+      #   **or**  
+      #   a symbol for one of predefined detection rules (`:mobile_path_rules`)
       # @param options
       #   A hash with strategy options.  
       #   `disable_if_referer_set: true` disables the strategy if HTTP Referer header is set  
@@ -18,8 +20,12 @@ module Mobvious
       #   given regular expression  
       #   `disable_unless_referer_matches: /regex/` disables the strategy if HTTP Referer
       #   doesn't match given regular expression  
-      def initialize(rules = MOBILE_PATH_RULES, options = {})
-        @rules = rules
+      def initialize(rules = :mobile_path_rules, options = {})
+        if rules.is_a? Symbol
+          @rules = eval(rules.to_s.upcase)
+        else
+          @rules = rules
+        end
 
         default_options = {
           disable_if_referer_set: false,

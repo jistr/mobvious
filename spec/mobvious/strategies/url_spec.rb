@@ -82,6 +82,16 @@ class URLSpec < MiniTest::Spec
         @strategy.get_device_type(@request).must_equal :mobile
       end
     end
+
+    describe "using custom rules" do
+      before do
+        @strategy = URL.new(/\.foo\./ => :test)
+      end
+
+      it "returns :test for any url" do
+        @strategy.get_device_type(@request).must_equal :test
+      end
+    end
   end
 end
 end
