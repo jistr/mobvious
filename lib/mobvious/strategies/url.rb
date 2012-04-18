@@ -3,7 +3,7 @@ module Mobvious
     # Mobvious device detection strategy that uses URL pattern matching.
     class URL
       # Rule set with only one rule for domains that begin with `m.` matching as `:mobile`.
-      MOBILE_PATH_RULES = { /^\w+:\/\/m\./ => :mobile }
+      RULES_MOBILE_PATH = { /^\w+:\/\/m\./ => :mobile }
 
       # Creates a new URL strategy instance.
       #
@@ -20,9 +20,9 @@ module Mobvious
       #   given regular expression  
       #   `disable_unless_referer_matches: /regex/` disables the strategy if HTTP Referer
       #   doesn't match given regular expression  
-      def initialize(rules = :mobile_path_rules, options = {})
+      def initialize(rules = :mobile_path, options = {})
         if rules.is_a? Symbol
-          @rules = eval(rules.to_s.upcase)
+          @rules = eval("RULES_#{rules.to_s.upcase}")
         else
           @rules = rules
         end

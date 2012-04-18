@@ -27,7 +27,7 @@ class URLSpec < MiniTest::Spec
 
     describe "disabled if referer is set" do
       before do
-        @strategy = URL.new(URL::MOBILE_PATH_RULES, disable_if_referer_set: true)
+        @strategy = URL.new(:mobile_path, disable_if_referer_set: true)
         @env.merge!({
           'HTTP_REFERER' => 'http://localhost'
         })
@@ -40,7 +40,7 @@ class URLSpec < MiniTest::Spec
 
     describe "disabled if referer is set" do
       before do
-        @strategy = URL.new(URL::MOBILE_PATH_RULES, disable_if_referer_set: true)
+        @strategy = URL.new(:mobile_path, disable_if_referer_set: true)
         @env.merge!({
           'HTTP_REFERER' => 'http://localhost'
         })
@@ -59,10 +59,10 @@ class URLSpec < MiniTest::Spec
       end
 
       it "returns nil even when matching rule found" do
-        @strategy = URL.new(URL::MOBILE_PATH_RULES, disable_if_referer_matches: /local/)
+        @strategy = URL.new(:mobile_path, disable_if_referer_matches: /local/)
         @strategy.get_device_type(@request).must_equal nil
 
-        @strategy = URL.new(URL::MOBILE_PATH_RULES, disable_if_referer_matches: /nothing/)
+        @strategy = URL.new(:mobile_path, disable_if_referer_matches: /nothing/)
         @strategy.get_device_type(@request).must_equal :mobile
       end
     end
@@ -75,10 +75,10 @@ class URLSpec < MiniTest::Spec
       end
 
       it "returns nil even when matching rule found" do
-        @strategy = URL.new(URL::MOBILE_PATH_RULES, disable_unless_referer_matches: /nothing/)
+        @strategy = URL.new(:mobile_path, disable_unless_referer_matches: /nothing/)
         @strategy.get_device_type(@request).must_equal nil
 
-        @strategy = URL.new(URL::MOBILE_PATH_RULES, disable_unless_referer_matches: /local/)
+        @strategy = URL.new(:mobile_path, disable_unless_referer_matches: /local/)
         @strategy.get_device_type(@request).must_equal :mobile
       end
     end
