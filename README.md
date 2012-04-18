@@ -89,7 +89,7 @@ in the `configure` block).
     the URL which user requested doesn't match their device type.
     (E.g. if the user comes to 'm.foo.com' via a link, but Mobvious tells you
     that their device is a desktop computer, make sure to redirect the user
-    immediately to 'www.foo.com'.)
+    immediately to 'foo.com'.)
 
         Mobvious.configure do |config|
           config.strategies = [
