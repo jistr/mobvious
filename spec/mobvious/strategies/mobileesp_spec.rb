@@ -21,6 +21,16 @@ module Mobvious::Strategies
         @strategy.get_device_type(@request).must_equal :mobile
       end
 
+      it "categorizes iPod as :mobile" do
+        @request.stubs(:user_agent).returns("Mozilla/5.0 (iPod; U; CPU like Mac OS X; en) AppleWebKit/420.1 (KHTML, like Gecko) Version/3.0 Mobile/3A100a Safari/419.3")
+        @strategy.get_device_type(@request).must_equal :mobile
+      end
+
+      it "categorizes old BlackBerry as :mobile" do
+        @request.stubs(:user_agent).returns("BlackBerry9530/4.7.0.148 Profile/MIDP-2.0 Configuration/CLDC-1.1 VendorID/105")
+        @strategy.get_device_type(@request).must_equal :mobile
+      end
+
       it "categorizes Android tablet as :desktop" do
         @request.stubs(:user_agent).returns("Mozilla/5.0 (Linux; U; Android 3.0; en-us; Xoom Build/HRI39) AppleWebKit/534.13 (KHTML, like Gecko) Version/4.0 Safari/534.13")
         @strategy.get_device_type(@request).must_equal :desktop
@@ -39,6 +49,16 @@ module Mobvious::Strategies
 
       it "categorizes iPhone as :mobile" do
         @request.stubs(:user_agent).returns("Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_0 like Mac OS X; en-us) AppleWebKit/532.9 (KHTML, like Gecko) Version/4.0.5 Mobile/8A293 Safari/6531.22.7")
+        @strategy.get_device_type(@request).must_equal :mobile
+      end
+
+      it "categorizes iPod as :mobile" do
+        @request.stubs(:user_agent).returns("Mozilla/5.0 (iPod; U; CPU like Mac OS X; en) AppleWebKit/420.1 (KHTML, like Gecko) Version/3.0 Mobile/3A100a Safari/419.3")
+        @strategy.get_device_type(@request).must_equal :mobile
+      end
+
+      it "categorizes old BlackBerry as :mobile" do
+        @request.stubs(:user_agent).returns("BlackBerry9530/4.7.0.148 Profile/MIDP-2.0 Configuration/CLDC-1.1 VendorID/105")
         @strategy.get_device_type(@request).must_equal :mobile
       end
 
