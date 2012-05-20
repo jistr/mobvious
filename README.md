@@ -114,12 +114,12 @@ information it can dig out of MobileESPConverted::UserAgentInfo instance.
 
 There are two predefined detection procedures (and you can write your own):
 
-*   `DEVICE_TYPES_MOBILE_DESKTOP` (this is the default)
+*   `:mobile_desktop` (this is the default)
     distinguishes between `:mobile` and `:desktop`. Tablets
     are reported as `:desktop`, because their screens are usually large enough to handle
     web interfaces meant for desktops.
 
-*   `DEVICE_TYPES_MOBILE_TABLET_DESKTOP` distinguishes between `:mobile`, `:tablet`
+*   `:mobile_tablet_desktop` distinguishes between `:mobile`, `:tablet`
     and `:desktop`.
 
 ### URL (URL pattern matching)
@@ -139,7 +139,7 @@ User-Agent detection take precedence.
 
 There is one predefined rule set:
 
-*   `MOBILE_PATH_RULES` detects all URLs that begin with m. (e.g. `http://m.foo.com/`)
+*   `:mobile_path` detects all URLs that begin with m. (e.g. `http://m.foo.com/`)
     as `:mobile`. Doesn't make assumption about other URLs (the detection process
     continues to the next strategy in order).
 
