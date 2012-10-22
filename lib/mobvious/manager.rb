@@ -24,7 +24,7 @@ module Mobvious
 
       status, headers, body = @app.call(env)
 
-      response = Rack::Response.new(body, status, headers)
+      response = (body.is_a?(Rack::Response) ? body : Rack::Response.new(body, status, headers))
       response_callback(request, response)
 
       [status, headers, body]
