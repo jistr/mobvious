@@ -41,13 +41,17 @@ module Mobvious
       # @param request [Rack::Request]
       # @param response [Rack::Response]
       def response_callback(request, response)
-        response_cookie_already_set = !!response.headers["Set-Cookie"] &&
-          !!response.headers["Set-Cookie"]["mobvious.device_type"]
-        request_cookie = request.cookies['mobvious.device_type']
+        if response.respond_to? :headers
 
-        # re-set the cookie to renew the expiration date
-        if request_cookie && !response_cookie_already_set
-          set_device_type(response, request_cookie)
+          response_cookie_already_set = !!response.headers["Set-Cookie"] &&
+            !!response.headers["Set-Cookie"]["mobvious.device_type"]
+          request_cookie = request.cookies['mobvious.device_type']
+
+          # re-set the cookie to renew the expiration date
+          if request_cookie && !response_cookie_already_set
+            set_device_type(response, request_cookie)
+          end
+
         end
       end
 
