@@ -24,6 +24,8 @@ Gem::Specification.new do |s|
   # Smart irb
   s.add_development_dependency 'pry'
 
+  s.add_development_dependency 'rake'
+
   # Specs
   s.add_development_dependency 'minitest'
   s.add_development_dependency 'mocha'
