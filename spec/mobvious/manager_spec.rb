@@ -61,20 +61,44 @@ module Mobvious
         @manager.call(@env)
       end
 
-      it "calls the response callback on strategies that have it defined" do
-        @env.stub_everything
-        @strategy1.stubs(:get_device_type)
-        @strategy1.stubs(:respond_to?).with(:response_callback).returns(true)
-        @strategy1.expects(:response_callback).with() {|request, response|
-          request.must_be_instance_of Rack::Request
-          (request.env == @env).must_equal true
-          response.must_be_instance_of Rack::Response
-          response.body.must_equal @return_value[2]
-        }
+      describe "with response callback defined" do
+        before do
+          @env.stub_everything
+          @strategy1.stubs(:get_device_type)
+          @strategy1.stubs(:respond_to?).with(:response_callback).returns(true)
+          @strategy2.stub_everything
+          @strategy3.stub_everything
+        end
 
-        @strategy2.stub_everything
-        @strategy3.stub_everything
-        @manager.call(@env)
+        it "calls the callback" do
+          @strategy1.expects(:response_callback).with() {|request, response|
+            request.must_be_instance_of Rack::Request
+            (request.env == @env).must_equal true
+            response.must_be_instance_of Rack::Response
+            response.body.must_equal @return_value[2]
+          }
+
+          @manager.call(@env)
+        end
+
+        describe "when app returns an object that has Rack::Request interface" do
+          before do
+            @return_value = stub({
+              :status => '',
+              :header => '',
+              :body => ''
+            })
+            @app.expects(:call).with(@env).returns(@return_value)
+          end
+
+          it "calls the callback with that object" do
+            @strategy1.expects(:response_callback).with() {|_, response|
+              response.must_equal @return_value
+            }
+
+            @manager.call(@env)
+          end
+        end
       end
     end
 

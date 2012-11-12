@@ -22,15 +22,25 @@ module Mobvious
       request = Rack::Request.new(env)
       assign_device_type(request)
 
-      status, headers, body = @app.call(env)
+      response = @app.call(env)
 
-      response = Rack::Response.new(body, status, headers)
-      response_callback(request, response)
+      rack_response = if rack_response?(response)
+                        response
+                      else
+                        Rack::Response.new(*response.to_a.rotate(-1))
+                      end
+      response_callback(request, rack_response)
 
-      [status, headers, body]
+      response
     end
 
     private
+      def rack_response?(response)
+        response.respond_to?(:status) &&
+          response.respond_to?(:header) &&
+          response.respond_to?(:body)
+      end
+
       def assign_device_type(request)
         request.env['mobvious.device_type'] =
             get_device_type_using_strategies(request) || config.default_device_type
