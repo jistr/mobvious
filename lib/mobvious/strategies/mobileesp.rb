@@ -16,7 +16,6 @@ module Mobvious
       # `:tablet` and anything else as `:desktop`.
       DEVICE_TYPES_MOBILE_TABLET_DESKTOP = lambda {|mobileesp|
         return :mobile if mobileesp.is_tier_generic_mobile || mobileesp.is_tier_iphone || mobileesp.is_tier_rich_css
-        return :mobile if mobileesp.is_tier_generic_mobile || mobileesp.is_tier_iphone
         return :tablet if mobileesp.is_tier_tablet
         return :desktop
       }
