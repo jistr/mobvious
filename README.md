@@ -35,7 +35,7 @@ fork your front-end code with regard to device type. There is a
     `config/initializers/mobvious.rb` and use this config to begin with:
 
         Mobvious.configure do |config|
-          config.strategies = [ Mobvious::Strategies::MobileESP.new ]
+          config.strategies = [ Mobvious::Strategies::MobileESP.new(:mobile_tablet_desktop) ]
         end
 
 4.  **Done! From now on, device type is detected for each request.**  
