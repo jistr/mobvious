@@ -61,7 +61,20 @@ module Mobvious
       # @param device_type [Symbol] A device type symbol (or string).
       def set_device_type(response, device_type)
         response.set_cookie('mobvious.device_type',
-                            { value: device_type.to_s, path: '/', expires: Time.now + @cookie_expires })
+                            { value: device_type.to_s, path: '/', expires: Time.now + @cookie_expires, domain: base_domain(response) })
+      end
+
+      # Returns the base domain to be used in setting cookies for all domains of the host in `set_device_type`
+      #
+      # @param response [Rack::Response]
+      def base_domain(response)
+        if response.respond_to? :request
+          host = response.request.host.sub /:\d+$/, ''
+          return unless host !~ /^([\d.]+|localhost)$/
+
+          host =~ /([^.]*)\.([^.]*|..\...|...\...|..\....)$/
+          ".#{$1}.#{$2}"
+        end
       end
     end
   end
