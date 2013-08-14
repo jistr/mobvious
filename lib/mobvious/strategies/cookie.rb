@@ -70,7 +70,7 @@ module Mobvious
       def base_domain(response)
         if response.respond_to? :request
           host = response.request.host.sub /:\d+$/, ''
-          return unless host !~ /^([\d.]+|localhost)$/
+          return if host =~ /^([\d.]+|localhost)$/
 
           host =~ /([^.]*)\.([^.]*|..\...|...\...|..\....)$/
           ".#{$1}.#{$2}"
